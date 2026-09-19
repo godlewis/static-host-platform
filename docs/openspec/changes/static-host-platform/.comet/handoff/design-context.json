@@ -1,0 +1,17 @@
+{
+  "change": "static-host-platform",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "a54d68bbf200b1e4d71ec4109910acf6235e40e9d207cfca4b6f458ddd12dd1a",
+  "files": [
+    { "path": "docs/openspec/changes/static-host-platform/proposal.md", "sha256": "4f5d99121b163ba31e5aeccee79c769cb28ed344fd9495c10bd4abd5ae0df179" },
+    { "path": "docs/openspec/changes/static-host-platform/design.md", "sha256": "7e0bdef52341c2bb7df0fa6338cd0045c0ce3e27451fdcd79e44c03a9440a464" },
+    { "path": "docs/openspec/changes/static-host-platform/tasks.md", "sha256": "b509c9c2f9d59783637c8c3c1b412e4459ca10988572ae2cec371d419226a8fc" },
+    { "path": "docs/openspec/changes/static-host-platform/specs/admin-auth/spec.md", "sha256": "dbf8ec2f5466e97d737982d9228a5955190ec78edc73348e70478a46a72a6551" },
+    { "path": "docs/openspec/changes/static-host-platform/specs/site-management/spec.md", "sha256": "df7de9e78478d4fb9d66812a37c2f0fea762e12fc05ada3e09d13a6767951fa8" },
+    { "path": "docs/openspec/changes/static-host-platform/specs/site-public/spec.md", "sha256": "3182bec02fc8d030bde76ac848ae8764faa307377cdc3cef678ff6c0d8dee1e0" },
+    { "path": "docs/openspec/changes/static-host-platform/specs/site-upload/spec.md", "sha256": "2bc3c0dfa7d1e5af55aace04688762c04c1605a182c2277929e33c327d25acd1" }
+  ]
+}
