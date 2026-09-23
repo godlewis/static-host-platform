@@ -2,8 +2,8 @@
 
 ## 1. 基础设施
 
-- [ ] 1.1 创建 server/routes/ 和 server/middleware/ 目录，在 server/index.js 中实现双端口 Express 启动（3001 admin / 3000 public），验证 `npm start` 无报错且两个端口均响应
-- [ ] 1.2 安装依赖并验证：运行 `npm install`，确认 node_modules 中存在所有 package.json 声明的包
+- [x] 1.1 创建 server/routes/ 和 server/middleware/ 目录，在 server/index.js 中实现双端口 Express 启动（3001 admin / 3000 public），验证 `npm start` 无报错且两个端口均响应
+- [x] 1.2 安装依赖并验证：运行 `npm install`，确认 node_modules 中存在所有 package.json 声明的包
 
 ## 2. 认证模块（admin-auth）
 
