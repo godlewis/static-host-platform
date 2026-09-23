@@ -135,6 +135,69 @@ router.post('/sites', upload.single('file'), (req, res, next) => {
   res.status(201).json({ success: true, site: created });
 });
 
+// 站点列表：created_at 倒序（id DESC 兜底秒级精度相同的并列项，避免不稳定排序）
+router.get('/sites', (req, res) => {
+  const sites = db.prepare('SELECT * FROM sites ORDER BY created_at DESC, id DESC').all();
+  res.json({ success: true, sites });
+});
+
+// 站点详情
+router.get('/sites/:slug', (req, res) => {
+  const site = db.prepare('SELECT * FROM sites WHERE slug = ?').get(req.params.slug);
+  if (!site) {
+    return res.status(404).json({ success: false, message: 'SITE_NOT_FOUND' });
+  }
+  res.json({ success: true, site });
+});
+
+// 更新站点：title/description/slug；slug 变更需校验唯一并同步改名目录
+router.put('/sites/:slug', (req, res, next) => {
+  const site = db.prepare('SELECT * FROM sites WHERE slug = ?').get(req.params.slug);
+  if (!site) {
+    return res.status(404).json({ success: false, message: 'SITE_NOT_FOUND' });
+  }
+  const { title = site.title, description = site.description } = req.body || {};
+  const newSlug = req.body && req.body.slug ? req.body.slug : site.slug;
+  if (!SLUG_RE.test(newSlug)) {
+    return res.status(400).json({ success: false, message: 'INVALID_SLUG' });
+  }
+
+  const oldDir = path.join(config.UPLOAD_DIR, site.slug);
+  const newDir = path.join(config.UPLOAD_DIR, newSlug);
+
+  if (newSlug !== site.slug) {
+    // 先查冲突（含自身以外的记录），再改名
+    const clash = db.prepare('SELECT id FROM sites WHERE slug = ?').get(newSlug);
+    if (clash) {
+      return res.status(409).json({ success: false, message: 'DUPLICATE_SLUG' });
+    }
+    try {
+      db.prepare('UPDATE sites SET slug = ?, title = ?, description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+        .run(newSlug, title, description, site.id);
+      fs.renameSync(oldDir, newDir);
+    } catch (e) {
+      return next(e);
+    }
+  } else {
+    db.prepare('UPDATE sites SET title = ?, description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
+      .run(title, description, site.id);
+  }
+
+  const updated = db.prepare('SELECT * FROM sites WHERE id = ?').get(site.id);
+  res.json({ success: true, site: updated });
+});
+
+// 删除站点：DB 记录 + 上传目录一起删
+router.delete('/sites/:slug', (req, res) => {
+  const site = db.prepare('SELECT * FROM sites WHERE slug = ?').get(req.params.slug);
+  if (!site) {
+    return res.status(404).json({ success: false, message: 'SITE_NOT_FOUND' });
+  }
+  db.prepare('DELETE FROM sites WHERE id = ?').run(site.id);
+  fs.rmSync(path.join(config.UPLOAD_DIR, site.slug), { recursive: true, force: true });
+  res.json({ success: true });
+});
+
 // Multer 与上传校验错误统一处理
 router.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   if (err.message === 'INVALID_FILE_TYPE') {
