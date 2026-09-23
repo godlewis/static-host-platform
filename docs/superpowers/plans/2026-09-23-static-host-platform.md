@@ -278,7 +278,7 @@ git commit -m "feat: 双端口应用工厂与入口，测试辅助基建"
 - Consumes: `server/db.js` 的 `db`（admins 表：`username`、`password_hash`）、`server/config.js` 的 `DEFAULT_ADMIN_USER`('admin')/`DEFAULT_ADMIN_PASSWORD`('admin123')、Task 1 的 `createApps()`。
 - Produces: `module.exports = function requireAuth(req, res, next)`，已登录（`req.session.adminId` 存在）放行，否则 401。`routes/admin.js` 导出挂载于 `/api` 的路由器，公开端点 `POST /api/login`、`POST /api/logout`、受保护端点 `GET/POST /api/sites` 等由后续任务在同一文件追加。
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 创建 `tests/auth.test.js`：
 
@@ -344,12 +344,12 @@ test('登出销毁会话，此后受保护接口重新 401', async () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/auth.test.js`
 Expected: FAIL——未登录测试返回 404（占位路由）而非 401；登录测试返回 404 而非 200。
 
-- [ ] **Step 3: 实现认证中间件**
+- [x] **Step 3: 实现认证中间件**
 
 替换 `server/middleware/auth.js` 全部内容：
 
@@ -363,7 +363,7 @@ module.exports = function requireAuth(req, res, next) {
 };
 ```
 
-- [ ] **Step 4: 实现登录/登出路由**
+- [x] **Step 4: 实现登录/登出路由**
 
 替换 `server/routes/admin.js` 全部内容（保留文件骨架，公开路由在前、`requireAuth` 在后，后续任务往"受保护区"里加路由）：
 
@@ -419,12 +419,12 @@ module.exports = router;
 
 注意：`/logout` 按设计文档要求认证（表格标注"需"），所以必须放在 `router.use(requireAuth)` 之后——上面 Step 4 的最终代码已经是这样（logout 在受保护区），公开区只有 `/login` 和后续 Task 3 的密码重置路由。测试中 logout 请求已带会话 cookie，可直接通过。
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `node --test tests/auth.test.js`
 Expected: PASS（4 个测试全部通过）。
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add server/middleware/auth.js server/routes/admin.js tests/auth.test.js

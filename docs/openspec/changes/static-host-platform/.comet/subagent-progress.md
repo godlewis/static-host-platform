@@ -5,10 +5,10 @@ review_mode: standard
 build_mode: subagent-driven-development
 tdd_mode: tdd
 isolation: branch (feature/20260923/static-host-platform)
-current_plan_task_index: 2
+current_plan_task_index: 3
 current_phase: implementing
 open_findings: []
-review_fix_round: {}
+review_fix_round: {"task-2": 1}
 
 ## Plan tasks (linear)
 
@@ -26,5 +26,6 @@ review_fix_round: {}
 
 ## Current state
 
-Task 1: complete (commit 3c4913b, 133 lines added, no risk signals, no DONE_WITH_CONCERNS; review_mode=standard → no per-task reviewer needed)
-Task 2 implementer: 待派发 (risk signal hit: 认证 = 安全敏感面 → reviewer will be dispatched after implementer report)
+Task 1: complete (commit 3c4913b, 133 lines, no risk signals, no reviewer needed)
+Task 2: complete (implementer commit 2489e23, 103 lines; reviewer found 1 IMPORTANT destroy err + 3 SUGGESTION; fix agent commit 7b3db3e +5/-2; scoped re-review PASS; review_fix_round=1)
+Task 3 implementer: 待派发 (risk signal hit: 密码重置 token 过期 → reviewer after implementer)
