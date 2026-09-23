@@ -1781,7 +1781,7 @@ git commit -m "feat: 管理界面单页应用，含登录、上传、编辑、�
 - Consumes: Task 1 的 `server/index.js`（容器入口命令）、package.json。
 - Produces: `docker compose up --build -d` 一键起服务，`uploads/`、`data/` 走 named volume（`site-uploads`、`site-data`），端口 3000/3001 暴露，环境变量按设计文档 §7 注入。
 
-- [ ] **Step 1: 创建 `Dockerfile`**
+- [x] **Step 1: 创建 `Dockerfile`**
 
 ```dockerfile
 # 多阶段构建：builder 装依赖，runner 只带产物
@@ -1803,7 +1803,7 @@ EXPOSE 3000 3001
 CMD ["node", "server/index.js"]
 ```
 
-- [ ] **Step 2: 创建 `docker-compose.yml`**
+- [x] **Step 2: 创建 `docker-compose.yml`**
 
 ```yaml
 services:
@@ -1831,7 +1831,7 @@ volumes:
   site-data:
 ```
 
-- [ ] **Step 3: 创建 `.dockerignore` 与 `.env.example`**
+- [x] **Step 3: 创建 `.dockerignore` 与 `.env.example`**
 
 `.dockerignore`：
 
@@ -1863,7 +1863,7 @@ SMTP_PASS=
 SMTP_FROM=noreply@local
 ```
 
-- [ ] **Step 4: 验证构建与运行**
+- [x] **Step 4: 验证构建与运行**
 
 Run:
 ```bash
@@ -1881,7 +1881,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:3001/
 ```
 Expected: 重启后仍返回 `200`，无 DB 报错日志（`docker compose logs app` 无 SQLite 错误）。验证完 `docker compose down`。
 
-- [ ] **Step 5: 提交**
+- [x] **Step 5: 提交**
 
 ```bash
 git add Dockerfile docker-compose.yml .dockerignore .env.example

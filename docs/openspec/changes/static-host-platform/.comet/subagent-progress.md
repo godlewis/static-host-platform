@@ -5,7 +5,7 @@ review_mode: standard
 build_mode: subagent-driven-development
 tdd_mode: tdd
 isolation: branch (feature/20260923/static-host-platform)
-current_plan_task_index: 8
+current_plan_task_index: 9
 current_phase: implementing
 open_findings: []
 review_fix_round: {"task-2": 1, "task-4": 1}
@@ -33,4 +33,5 @@ Task 4: complete (implementer commit d5893b8 7/7 upload + 16/16 全量 PASS; rev
 Task 5: complete (implementer commit a02a851, 22/22 PASS, no risk signal hit, skip reviewer; PUT 签名已修 ledger ruling (req,res,next); Concern: PUT slug 变更非原子 UPDATE→renameSync，renameSync 失败时 DB 已改目录未改 — production-low-probability 不阻塞交付)
 Task 6: complete (implementer commit edd3bbe 5/5 + 27/27 全量 PASS; reviewer PASS / SPEC COMPLIANT / QUALITY APPROVED 0/0/4; implementer 改用 http.request 直发 raw `../` 防 fetch URL constructor 规范化吃掉 raw 路径，真实抵达服务端并被 resolveSafe 拦截)
 Task 7: complete (implementer commit 291f6fd admin.html + admin.js + 27/27 backend PASS via Node 22; binding-fix commit 192c633 恢复 Node 20 ABI v115 + 27/27 Node 20 回归 PASS; frontend 无单元测试，Task 9 集成冒烟验收; no risk signal hit)
-Task 8 implementer: 待派发 (risk signal hit: Docker 部署 → reviewer after implementer)
+Task 8: complete (implementer commit d68be9c, 60 lines added (Dockerfile 17/docker-compose 23/.dockerignore 9/.env.example 11); reviewer VERDICT PASS_WITH_CONCERNS / SPEC COMPLIANT yes / QUALITY APPROVED yes, IMPORTANT finding=lock vs package.json 不一致阻塞 `docker compose build`; pre-fix 在 controller 端 commit c918149 处理（npm install 重生 lock v9.6.0 + 加 .gitignore + untrack node_modules binary + 27/27 Node 20 回归 PASS）；review_fix_round=0 因为 reviewer 的 IMPORTANT 不属于 Task 8 spec；ledger ruling: Step 4 端到端验证降级为 `docker-compose config` YAML lint，端到端 docker compose up 转 Task 9 8.3)
+Task 9 implementer: 待派发 (no risk signal: 集成冒烟 + 安全验证)

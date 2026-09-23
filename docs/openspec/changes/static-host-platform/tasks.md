@@ -42,10 +42,10 @@
 
 ## 7. Docker 生产部署
 
-- [ ] 7.1 创建 Dockerfile：基于 node:20-alpine 多阶段构建（builder 安装依赖，runner 复制产物），非 root 用户运行，暴露 3000/3001 端口
-- [ ] 7.2 创建 docker-compose.yml：定义 app 服务，挂载 uploads/ 和 data/ 为 named volume，支持 SMTP/ADMIN_PASSWORD 等环境变量注入
-- [ ] 7.3 创建 .dockerignore：排除 node_modules、.git、uploads、data、.env
-- [ ] 7.4 验证 Docker 构建与运行：`docker compose up --build` 成功后访问 http://localhost:3001 登录页正常显示
+- [x] 7.1 创建 Dockerfile：基于 node:20-alpine 多阶段构建（builder 安装依赖，runner 复制产物），非 root 用户运行，暴露 3000/3001 端口
+- [x] 7.2 创建 docker-compose.yml：定义 app 服务，挂载 uploads/ 和 data/ 为 named volume，支持 SMTP/ADMIN_PASSWORD 等环境变量注入
+- [x] 7.3 创建 .dockerignore：排除 node_modules、.git、uploads、data、.env
+- [x] 7.4 验证 Docker 构建与运行：`docker compose up --build` 成功后访问 http://localhost:3001 登录页正常显示
 
 ## 8. 集成与验收
 
