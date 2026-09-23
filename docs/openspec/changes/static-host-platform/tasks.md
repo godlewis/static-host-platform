@@ -34,11 +34,11 @@
 
 ## 6. 前端管理界面
 
-- [ ] 6.1 创建 client/admin.html：登录页（表单+忘记密码链接）和主界面（导航栏+站点卡片网格+上传按钮），使用 Tailwind CSS CDN
-- [ ] 6.2 创建 client/admin.js：封装 API 调用（login/logout/sites CRUD），DOM 操作实现页面渲染、上传模态框、编辑模态框、预览 iframe
-- [ ] 6.3 实现登录页跳转逻辑：未登录时强制显示登录表单，登录后切换到主界面
-- [ ] 6.4 实现上传功能：拖拽/点击选择 ZIP，显示进度提示，上传成功后刷新站点列表
-- [ ] 6.5 实现站点卡片：显示 title、description、创建时间，操作按钮（预览弹窗 iframe、编辑元信息、删除二次确认）
+- [x] 6.1 创建 client/admin.html：登录页（表单+忘记密码链接）和主界面（导航栏+站点卡片网格+上传按钮），使用 Tailwind CSS CDN
+- [x] 6.2 创建 client/admin.js：封装 API 调用（login/logout/sites CRUD），DOM 操作实现页面渲染、上传模态框、编辑模态框、预览 iframe
+- [x] 6.3 实现登录页跳转逻辑：未登录时强制显示登录表单，登录后切换到主界面
+- [x] 6.4 实现上传功能：拖拽/点击选择 ZIP，显示进度提示，上传成功后刷新站点列表
+- [x] 6.5 实现站点卡片：显示 title、description、创建时间，操作按钮（预览弹窗 iframe、编辑元信息、删除二次确认）
 
 ## 7. Docker 生产部署
 

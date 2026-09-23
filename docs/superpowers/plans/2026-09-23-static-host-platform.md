@@ -1336,7 +1336,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 - Consumes: Task 2-6 的全部 API（`/api/login`、`/api/logout`、`/api/forgot-password`、`/api/reset-password`、`/api/sites` CRUD）；公开端 `http://<host>:3000/sites/{slug}` 用于预览 iframe。
 - Produces: 管理端所有非 `/api` 路径都由 `express.static(client/)` + fallback 提供 `admin.html`。前端内置视图：登录、忘记密码、重置密码（`?token=...`）、主界面（站点卡片 + 上传/编辑/预览/删除）。
 
-- [ ] **Step 1: 创建 `client/admin.html`**
+- [x] **Step 1: 创建 `client/admin.html`**
 
 ```html
 <!DOCTYPE html>
@@ -1477,7 +1477,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 </html>
 ```
 
-- [ ] **Step 2: 创建 `client/admin.js`**
+- [x] **Step 2: 创建 `client/admin.js`**
 
 ```javascript
 // 管理界面逻辑：视图切换 + API 封装 + 各模态框
@@ -1744,7 +1744,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 })();
 ```
 
-- [ ] **Step 3: 手动验证**
+- [x] **Step 3: 手动验证**
 
 Run: `npm start`，浏览器打开 `http://localhost:3001`。
 Expected:
@@ -1754,12 +1754,12 @@ Expected:
 4. 登出回到登录页；"忘记密码"可切换视图（SMTP 未配置时提示文案正常）。
 验证完 Ctrl+C。
 
-- [ ] **Step 4: 回归跑全部后端测试**
+- [x] **Step 4: 回归跑全部后端测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS（前端不破坏后端路由）。
 
-- [ ] **Step 5: 提交**
+- [x] **Step 5: 提交**
 
 ```bash
 git add client/admin.html client/admin.js
