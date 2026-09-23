@@ -10,8 +10,8 @@
 - [x] 2.1 实现 server/middleware/auth.js：Session 验证中间件，未登录返回 401 `{success:false,message:"AUTH_REQUIRED"}`
 - [x] 2.2 实现 server/routes/admin.js 的 POST /api/login：bcrypt 验证密码，建立 Session，返回 200 `{success:true}`；错误凭证返回 401
 - [x] 2.3 实现 POST /api/logout：销毁 Session，返回 200
-- [ ] 2.4 实现 POST /api/forgot-password：生成 UUID 令牌存入 reset_tokens（60 分钟过期），调用 email.js 发送；SMTP 未配置时静默返回 200
-- [ ] 2.5 实现 POST /api/reset-password：验证令牌有效性（存在、未过期、匹配邮箱），更新 password_hash，删除令牌，返回 200
+- [x] 2.4 实现 POST /api/forgot-password：生成 UUID 令牌存入 reset_tokens（60 分钟过期），调用 email.js 发送；SMTP 未配置时静默返回 200
+- [x] 2.5 实现 POST /api/reset-password：验证令牌有效性（存在、未过期、匹配邮箱），更新 password_hash，删除令牌，返回 200
 
 ## 3. 文件上传与部署（site-upload）
 

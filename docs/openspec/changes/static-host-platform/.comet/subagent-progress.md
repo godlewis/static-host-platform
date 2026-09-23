@@ -5,7 +5,7 @@ review_mode: standard
 build_mode: subagent-driven-development
 tdd_mode: tdd
 isolation: branch (feature/20260923/static-host-platform)
-current_plan_task_index: 3
+current_plan_task_index: 4
 current_phase: implementing
 open_findings: []
 review_fix_round: {"task-2": 1}
@@ -28,4 +28,5 @@ review_fix_round: {"task-2": 1}
 
 Task 1: complete (commit 3c4913b, 133 lines, no risk signals, no reviewer needed)
 Task 2: complete (implementer commit 2489e23, 103 lines; reviewer found 1 IMPORTANT destroy err + 3 SUGGESTION; fix agent commit 7b3db3e +5/-2; scoped re-review PASS; review_fix_round=1)
-Task 3 implementer: 待派发 (risk signal hit: 密码重置 token 过期 → reviewer after implementer)
+Task 3: complete (implementer commit 5402f79, 145 lines, 4 pass / 0 fail password-reset + 9 pass / 0 fail 全量回归; reviewer PASS / SPEC COMPLIANT / QUALITY APPROVED; no review_fix_round needed; DONE_WITH_CONCERNS 6 项均为 informational)
+Task 4 implementer: 待派发 (risk signal hit: 路径遍历拦截 + 外部输入 → reviewer after implementer)

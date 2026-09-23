@@ -443,7 +443,7 @@ git commit -m "feat: Session 认证中间件与登录登出接口"
 - Consumes: `server/db.js` 的 `db`（`reset_tokens` 表：`email/token/expires_at`）、`server/email.js` 的 `sendResetEmail(email, token, adminUrl)`、`server/config.js` 的 `RESET_TOKEN_EXPIRY_MINUTES`(60)、`uuid` 包。
 - Produces: `POST /api/forgot-password`（body `{email}`，恒返回 `200 {success:true}`）、`POST /api/reset-password`（body `{token, newPassword}`，成功 `200 {success:true}`；令牌无效/过期/邮箱不匹配 `400 {success:false,message:"INVALID_TOKEN"}`）。
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 创建 `tests/password-reset.test.js`：
 
@@ -547,12 +547,12 @@ test('重置成功后令牌被删除，不能二次使用', async () => {
 
 注意：每个测试文件是独立进程、独立临时 DB，`startServer` 内部会调 `createApps()`→`initDb()` 建默认管理员，所以每文件里默认管理员密码都是 `admin123`，测试之间互不污染。
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/password-reset.test.js`
 Expected: FAIL——两个路由均为 404。
 
-- [ ] **Step 3: 实现路由**
+- [x] **Step 3: 实现路由**
 
 在 `server/routes/admin.js` 文件顶部 require 区追加：
 
@@ -601,17 +601,17 @@ router.post('/reset-password', (req, res) => {
 });
 ```
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/password-reset.test.js`
 Expected: PASS（4 个测试全部通过）。
 
-- [ ] **Step 5: 回归跑全部已有测试**
+- [x] **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS（smoke + auth + password-reset）。
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add server/routes/admin.js tests/password-reset.test.js
