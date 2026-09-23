@@ -26,8 +26,11 @@ router.post('/login', (req, res) => {
 router.use(requireAuth);
 
 // 登出：销毁 Session（按设计文档要求需登录后才能登出）
-router.post('/logout', (req, res) => {
-  req.session.destroy(() => res.json({ success: true }));
+router.post('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) return next(err);
+    res.json({ success: true });
+  });
 });
 
 // 占位：站点管理路由在 Task 4/5 实现
