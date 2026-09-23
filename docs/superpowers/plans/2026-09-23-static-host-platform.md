@@ -631,7 +631,7 @@ git commit -m "feat: 密码找回与重置接口，令牌 60 分钟过期一次�
 - Consumes: Task 2 的 `requireAuth`；`multer`；`adm-zip`；`server/config.js` 的 `UPLOAD_DIR`、`MAX_UPLOAD_MB`；`db`（sites 表 `slug` UNIQUE）。
 - Produces: `module.exports = upload`（Multer 实例，调用方式 `upload.single('file')`，字段名必须是 `file`）。`POST /api/sites` 为 multipart/form-data：字段 `file`(ZIP)、`title`、`slug`、`description`(可选)；成功 `201 {success:true, site:{id,slug,title,description,created_at}}`；错误码 `MISSING_FIELDS`(400)、`INVALID_SLUG`(400)、`INVALID_FILE_TYPE`(400)、`FILE_TOO_LARGE`(400)、`PATH_TRAVERSAL`(400)、`DUPLICATE_SLUG`(409)。slug 规则：`/^[a-z0-9][a-z0-9-]{0,63}$/i`。
 
-- [ ] **Step 1: 实现 Multer 中间件（无独立测试，由上传路由测试覆盖）**
+- [x] **Step 1: 实现 Multer 中间件（无独立测试，由上传路由测试覆盖）**
 
 创建 `server/middleware/upload.js`：
 
@@ -655,7 +655,7 @@ const upload = multer({
 module.exports = upload;
 ```
 
-- [ ] **Step 2: 写失败测试**
+- [x] **Step 2: 写失败测试**
 
 创建 `tests/upload.test.js`：
 
@@ -800,12 +800,12 @@ test('未登录上传返回 401', async () => {
 });
 ```
 
-- [ ] **Step 3: 运行测试确认失败**
+- [x] **Step 3: 运行测试确认失败**
 
 Run: `node --test tests/upload.test.js`
 Expected: FAIL——`POST /api/sites` 目前只返回空列表占位（404/200 而非 201）。
 
-- [ ] **Step 4: 实现上传路由**
+- [x] **Step 4: 实现上传路由**
 
 在 `server/routes/admin.js` 顶部 require 区追加：
 
@@ -887,17 +887,17 @@ router.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 同时删掉 Task 2 遗留的 `router.get('/sites', ...)` 占位路由（Task 5 会实现真正的列表接口；先删掉避免与 Task 5 冲突，本任务测试不依赖列表接口）。
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `node --test tests/upload.test.js`
 Expected: PASS（7 个测试全部通过）。
 
-- [ ] **Step 6: 回归跑全部已有测试**
+- [x] **Step 6: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [ ] **Step 7: 提交**
+- [x] **Step 7: 提交**
 
 ```bash
 git add server/middleware/upload.js server/routes/admin.js tests/upload.test.js

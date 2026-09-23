@@ -15,9 +15,9 @@
 
 ## 3. 文件上传与部署（site-upload）
 
-- [ ] 3.1 实现 server/middleware/upload.js：Multer 配置，限制 100MB，仅允许 .zip 扩展名
-- [ ] 3.2 实现 server/routes/admin.js 的 POST /api/sites：接收 ZIP + title + slug，解压前校验 entry 路径不含 ".."，解压到 uploads/{slug}/，插入 sites 表，返回 201
-- [ ] 3.3 处理 slug 唯一冲突：插入失败时返回 409 DUPLICATE_SLUG
+- [x] 3.1 实现 server/middleware/upload.js：Multer 配置，限制 100MB，仅允许 .zip 扩展名
+- [x] 3.2 实现 server/routes/admin.js 的 POST /api/sites：接收 ZIP + title + slug，解压前校验 entry 路径不含 ".."，解压到 uploads/{slug}/，插入 sites 表，返回 201
+- [x] 3.3 处理 slug 唯一冲突：插入失败时返回 409 DUPLICATE_SLUG
 
 ## 4. 网站管理（site-management）
 
