@@ -1167,7 +1167,7 @@ git commit -m "feat: 站点管理 CRUD 接口，slug 变更同步改名目录"
   - `GET /sites/:slug/*` → 提供子路径文件；路径逃逸（含 URL 编码 `%2e%2e%2f`）→ `400 PATH_TRAVERSAL`；文件不存在 → `404 SITE_NOT_FOUND`。
   - Content-Type 由 `res.sendFile` 按扩展名自动设置。
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 创建 `tests/public.test.js`：
 
@@ -1255,12 +1255,12 @@ test('不存在的站点/文件返回 404 SITE_NOT_FOUND', async () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/public.test.js`
 Expected: FAIL——占位路由全部返回 404 SITE_NOT_FOUND（合法请求也 404，遍历请求返回的是 404 而非 400）。
 
-- [ ] **Step 3: 实现公开路由**
+- [x] **Step 3: 实现公开路由**
 
 替换 `server/routes/public.js` 全部内容：
 
@@ -1306,17 +1306,17 @@ router.get('/:slug/*', (req, res) => {
 module.exports = router;
 ```
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/public.test.js`
 Expected: PASS（5 个测试全部通过）。若 URL 编码遍历测试失败，检查 Express 对 `%2e` 的解码时机——`req.params` 已解码，`path.resolve` + `startsWith` 校验能覆盖，无需额外处理。
 
-- [ ] **Step 5: 回归跑全部已有测试**
+- [x] **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add server/routes/public.js tests/public.test.js

@@ -28,9 +28,9 @@
 
 ## 5. 公开静态服务（site-public）
 
-- [ ] 5.1 实现 server/routes/public.js：GET /sites/:slug/* 路由，从 uploads/{slug}/ 提供文件，Content-Type 由文件扩展名决定
-- [ ] 5.2 实现默认页逻辑：GET /sites/:slug 无 path 时自动提供 index.html，不存在则 404
-- [ ] 5.3 实现路径安全校验：请求路径 normalize 后必须位于 uploads/{slug}/ 内，否则返回 400 PATH_TRAVERSAL
+- [x] 5.1 实现 server/routes/public.js：GET /sites/:slug/* 路由，从 uploads/{slug}/ 提供文件，Content-Type 由文件扩展名决定
+- [x] 5.2 实现默认页逻辑：GET /sites/:slug 无 path 时自动提供 index.html，不存在则 404
+- [x] 5.3 实现路径安全校验：请求路径 normalize 后必须位于 uploads/{slug}/ 内，否则返回 400 PATH_TRAVERSAL
 
 ## 6. 前端管理界面
 
