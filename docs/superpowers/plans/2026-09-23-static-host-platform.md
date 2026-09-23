@@ -1899,12 +1899,12 @@ git commit -m "feat: Docker 多阶段构建与 compose 编排，数据卷持久�
 - Consumes: 全部前序任务的成果。
 - Produces: 验收证据（终端输出记录），确认所有 tasks.md 第 8 节项通过。
 
-- [ ] **Step 1: 全量自动化测试**
+- [x] **Step 1: 全量自动化测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS，0 fail。
 
-- [ ] **Step 2: 本地完整冒烟（本机 npm start）**
+- [x] **Step 2: 本地完整冒烟（本机 npm start）**
 
 Run: `npm start`，然后：
 ```bash
@@ -1926,7 +1926,7 @@ curl -s http://localhost:3000/sites/demo
 ```
 Expected: 依次为 `{"success":true}`、`201`、列表含 `demo`、`<h1>demo</h1>`、`{"success":true}`、`404 SITE_NOT_FOUND`。
 
-- [ ] **Step 3: 安全验证**
+- [x] **Step 3: 安全验证**
 
 Run:
 ```bash
@@ -1937,7 +1937,7 @@ curl -s http://localhost:3001/api/sites
 ```
 Expected: 遍历请求返回 `400`（不是 200，绝不吐出 package.json 内容）；未认证返回 `401 AUTH_REQUIRED`。
 
-- [ ] **Step 4: Docker 端到端验证**
+- [x] **Step 4: Docker 端到端验证**
 
 Run:
 ```bash
@@ -1948,7 +1948,7 @@ docker compose down
 ```
 Expected: 浏览器流程完整可走通（登录页 → 上传 → 卡片出现 → 预览正常）；curl 返回上传站点的 index.html 内容。
 
-- [ ] **Step 5: 收尾提交（如有验收期修复）**
+- [x] **Step 5: 收尾提交（如有验收期修复）**
 
 ```bash
 git add -A

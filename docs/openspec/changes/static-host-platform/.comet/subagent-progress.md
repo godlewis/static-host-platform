@@ -5,7 +5,7 @@ review_mode: standard
 build_mode: subagent-driven-development
 tdd_mode: tdd
 isolation: branch (feature/20260923/static-host-platform)
-current_plan_task_index: 9
+current_plan_task_index: complete
 current_phase: implementing
 open_findings: []
 review_fix_round: {"task-2": 1, "task-4": 1}
@@ -34,4 +34,4 @@ Task 5: complete (implementer commit a02a851, 22/22 PASS, no risk signal hit, sk
 Task 6: complete (implementer commit edd3bbe 5/5 + 27/27 全量 PASS; reviewer PASS / SPEC COMPLIANT / QUALITY APPROVED 0/0/4; implementer 改用 http.request 直发 raw `../` 防 fetch URL constructor 规范化吃掉 raw 路径，真实抵达服务端并被 resolveSafe 拦截)
 Task 7: complete (implementer commit 291f6fd admin.html + admin.js + 27/27 backend PASS via Node 22; binding-fix commit 192c633 恢复 Node 20 ABI v115 + 27/27 Node 20 回归 PASS; frontend 无单元测试，Task 9 集成冒烟验收; no risk signal hit)
 Task 8: complete (implementer commit d68be9c, 60 lines added (Dockerfile 17/docker-compose 23/.dockerignore 9/.env.example 11); reviewer VERDICT PASS_WITH_CONCERNS / SPEC COMPLIANT yes / QUALITY APPROVED yes, IMPORTANT finding=lock vs package.json 不一致阻塞 `docker compose build`; pre-fix 在 controller 端 commit c918149 处理（npm install 重生 lock v9.6.0 + 加 .gitignore + untrack node_modules binary + 27/27 Node 20 回归 PASS）；review_fix_round=0 因为 reviewer 的 IMPORTANT 不属于 Task 8 spec；ledger ruling: Step 4 端到端验证降级为 `docker-compose config` YAML lint，端到端 docker compose up 转 Task 9 8.3)
-Task 9 implementer: 待派发 (no risk signal: 集成冒烟 + 安全验证)
+Task 9: complete (implementer report `task-9-report.md`, 27/27 tests PASS, Step 2 冒烟 6 个 curl 状态码 200/201/200/200/200/404 全对，Step 3 路径遍历 400 + 未认证 401，Step 4 Docker 端到端在 WSL docker daemon 下完成 compose up + 等价 HTTP e2e 全绿；验收期修复真实问题 commit 97f530e：Dockerfile apk 增装 python3/make/g++ + `npm ci --omit=dev` 写法打散 WSL 容器到 registry 间歇 TLS 握手失败留下的坏 npm ci 缓存层，express/body-parser 等 128 个包恢复完整；no risk signal hit → skip reviewer；ledger ruling 追加 WSL docker daemon 路径与 npm ci 缓存层教训；Concerns 3 项不影响验收：dev `data/` 历史残留 / WSL 容器 TLS 偶发 / 浏览器流程建议人工点一遍)

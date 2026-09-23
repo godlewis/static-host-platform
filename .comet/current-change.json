@@ -2,5 +2,5 @@
   "schema": "comet.selection.v2",
   "workflow": "classic",
   "change": "static-host-platform",
-  "branch": null
+  "branch": "feature/20260923/static-host-platform"
 }
