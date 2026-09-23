@@ -1,0 +1,9 @@
+node_modules
+.git
+uploads
+data
+.env
+.dockerignore
+.DS_Store
+docs
+tests
