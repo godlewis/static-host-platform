@@ -64,12 +64,12 @@ base-ref: 8a070148d60144a8e84b0eb2bec114df372fe338
 - Consumes: `server/config.js`（`ADMIN_PORT`、`PUBLIC_PORT`、`CLIENT_DIR`、`SESSION_SECRET`、`SESSION_NAME`）、`server/db.js` 的 `initDb()`。
 - Produces: `server/app.js` 导出 `createApps()`，返回 `{ adminApp, publicApp }` 两个未监听的 Express 实例；后续所有任务的测试都通过 `tests/helpers.js` 的 `startServer()` 拿到 `adminUrl`/`publicUrl`/`close()`。
 
-- [x] **Step 1: 安装依赖**
+- **Step 1: 安装依赖**
 
 Run: `npm install`
 Expected: 退出码 0，`node_modules/` 生成，无 missing 依赖报错。package.json 已声明全部依赖，无需新增。
 
-- [x] **Step 2: 写测试辅助（先写测试）**
+- **Step 2: 写测试辅助（先写测试）**
 
 创建 `tests/helpers.js`：
 
@@ -127,7 +127,7 @@ function makeZip(files) {
 module.exports = { useTempDb, startServer, sessionCookie, login, makeZip, randomSlug: () => 'site-' + crypto.randomBytes(4).toString('hex') };
 ```
 
-- [x] **Step 3: 写冒烟测试**
+- **Step 3: 写冒烟测试**
 
 创建 `tests/smoke.test.js`：
 
@@ -152,12 +152,12 @@ test('管理端 3001 系：未登录访问 /api/sites 返回 401 占位路由前
 });
 ```
 
-- [x] **Step 4: 运行测试确认失败**
+- **Step 4: 运行测试确认失败**
 
 Run: `node --test tests/smoke.test.js`
 Expected: FAIL，报错 `Cannot find module '../server/app'`。
 
-- [x] **Step 5: 实现 `server/app.js`**
+- **Step 5: 实现 `server/app.js`**
 
 ```javascript
 // 应用工厂：构建管理端与公开端两个 Express 实例（不监听，便于测试）
@@ -231,7 +231,7 @@ module.exports = router;
 module.exports = function requireAuth(req, res, next) { next(); };
 ```
 
-- [x] **Step 6: 实现 `server/index.js`**
+- **Step 6: 实现 `server/index.js`**
 
 ```javascript
 // 双端口入口：管理端 3001 + 公开端 3000
@@ -248,17 +248,17 @@ publicApp.listen(config.PUBLIC_PORT, () => {
 });
 ```
 
-- [x] **Step 7: 运行测试确认通过**
+- **Step 7: 运行测试确认通过**
 
 Run: `node --test tests/smoke.test.js`
 Expected: PASS（1 个测试通过）。
 
-- [x] **Step 8: 手动验证 `npm start`**
+- **Step 8: 手动验证 `npm start`**
 
 Run: `npm start`（另开终端 `curl http://localhost:3001` 与 `curl http://localhost:3000/sites/x`）
 Expected: 控制台输出 `[Admin]` 与 `[Public]` 两行日志；两个 curl 都有响应（管理端返回 fallback HTML/404 占位均可）。验证完 Ctrl+C 停掉。
 
-- [x] **Step 9: 提交**
+- **Step 9: 提交**
 
 ```bash
 git add server/app.js server/index.js server/routes server/middleware tests
@@ -278,7 +278,7 @@ git commit -m "feat: 双端口应用工厂与入口，测试辅助基建"
 - Consumes: `server/db.js` 的 `db`（admins 表：`username`、`password_hash`）、`server/config.js` 的 `DEFAULT_ADMIN_USER`('admin')/`DEFAULT_ADMIN_PASSWORD`('admin123')、Task 1 的 `createApps()`。
 - Produces: `module.exports = function requireAuth(req, res, next)`，已登录（`req.session.adminId` 存在）放行，否则 401。`routes/admin.js` 导出挂载于 `/api` 的路由器，公开端点 `POST /api/login`、`POST /api/logout`、受保护端点 `GET/POST /api/sites` 等由后续任务在同一文件追加。
 
-- [x] **Step 1: 写失败测试**
+- **Step 1: 写失败测试**
 
 创建 `tests/auth.test.js`：
 
@@ -344,12 +344,12 @@ test('登出销毁会话，此后受保护接口重新 401', async () => {
 });
 ```
 
-- [x] **Step 2: 运行测试确认失败**
+- **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/auth.test.js`
 Expected: FAIL——未登录测试返回 404（占位路由）而非 401；登录测试返回 404 而非 200。
 
-- [x] **Step 3: 实现认证中间件**
+- **Step 3: 实现认证中间件**
 
 替换 `server/middleware/auth.js` 全部内容：
 
@@ -363,7 +363,7 @@ module.exports = function requireAuth(req, res, next) {
 };
 ```
 
-- [x] **Step 4: 实现登录/登出路由**
+- **Step 4: 实现登录/登出路由**
 
 替换 `server/routes/admin.js` 全部内容（保留文件骨架，公开路由在前、`requireAuth` 在后，后续任务往"受保护区"里加路由）：
 
@@ -419,12 +419,12 @@ module.exports = router;
 
 注意：`/logout` 按设计文档要求认证（表格标注"需"），所以必须放在 `router.use(requireAuth)` 之后——上面 Step 4 的最终代码已经是这样（logout 在受保护区），公开区只有 `/login` 和后续 Task 3 的密码重置路由。测试中 logout 请求已带会话 cookie，可直接通过。
 
-- [x] **Step 5: 运行测试确认通过**
+- **Step 5: 运行测试确认通过**
 
 Run: `node --test tests/auth.test.js`
 Expected: PASS（4 个测试全部通过）。
 
-- [x] **Step 6: 提交**
+- **Step 6: 提交**
 
 ```bash
 git add server/middleware/auth.js server/routes/admin.js tests/auth.test.js
@@ -443,7 +443,7 @@ git commit -m "feat: Session 认证中间件与登录登出接口"
 - Consumes: `server/db.js` 的 `db`（`reset_tokens` 表：`email/token/expires_at`）、`server/email.js` 的 `sendResetEmail(email, token, adminUrl)`、`server/config.js` 的 `RESET_TOKEN_EXPIRY_MINUTES`(60)、`uuid` 包。
 - Produces: `POST /api/forgot-password`（body `{email}`，恒返回 `200 {success:true}`）、`POST /api/reset-password`（body `{token, newPassword}`，成功 `200 {success:true}`；令牌无效/过期/邮箱不匹配 `400 {success:false,message:"INVALID_TOKEN"}`）。
 
-- [x] **Step 1: 写失败测试**
+- **Step 1: 写失败测试**
 
 创建 `tests/password-reset.test.js`：
 
@@ -547,12 +547,12 @@ test('重置成功后令牌被删除，不能二次使用', async () => {
 
 注意：每个测试文件是独立进程、独立临时 DB，`startServer` 内部会调 `createApps()`→`initDb()` 建默认管理员，所以每文件里默认管理员密码都是 `admin123`，测试之间互不污染。
 
-- [x] **Step 2: 运行测试确认失败**
+- **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/password-reset.test.js`
 Expected: FAIL——两个路由均为 404。
 
-- [x] **Step 3: 实现路由**
+- **Step 3: 实现路由**
 
 在 `server/routes/admin.js` 文件顶部 require 区追加：
 
@@ -601,17 +601,17 @@ router.post('/reset-password', (req, res) => {
 });
 ```
 
-- [x] **Step 4: 运行测试确认通过**
+- **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/password-reset.test.js`
 Expected: PASS（4 个测试全部通过）。
 
-- [x] **Step 5: 回归跑全部已有测试**
+- **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS（smoke + auth + password-reset）。
 
-- [x] **Step 6: 提交**
+- **Step 6: 提交**
 
 ```bash
 git add server/routes/admin.js tests/password-reset.test.js
@@ -631,7 +631,7 @@ git commit -m "feat: 密码找回与重置接口，令牌 60 分钟过期一次�
 - Consumes: Task 2 的 `requireAuth`；`multer`；`adm-zip`；`server/config.js` 的 `UPLOAD_DIR`、`MAX_UPLOAD_MB`；`db`（sites 表 `slug` UNIQUE）。
 - Produces: `module.exports = upload`（Multer 实例，调用方式 `upload.single('file')`，字段名必须是 `file`）。`POST /api/sites` 为 multipart/form-data：字段 `file`(ZIP)、`title`、`slug`、`description`(可选)；成功 `201 {success:true, site:{id,slug,title,description,created_at}}`；错误码 `MISSING_FIELDS`(400)、`INVALID_SLUG`(400)、`INVALID_FILE_TYPE`(400)、`FILE_TOO_LARGE`(400)、`PATH_TRAVERSAL`(400)、`DUPLICATE_SLUG`(409)。slug 规则：`/^[a-z0-9][a-z0-9-]{0,63}$/i`。
 
-- [x] **Step 1: 实现 Multer 中间件（无独立测试，由上传路由测试覆盖）**
+- **Step 1: 实现 Multer 中间件（无独立测试，由上传路由测试覆盖）**
 
 创建 `server/middleware/upload.js`：
 
@@ -655,7 +655,7 @@ const upload = multer({
 module.exports = upload;
 ```
 
-- [x] **Step 2: 写失败测试**
+- **Step 2: 写失败测试**
 
 创建 `tests/upload.test.js`：
 
@@ -800,12 +800,12 @@ test('未登录上传返回 401', async () => {
 });
 ```
 
-- [x] **Step 3: 运行测试确认失败**
+- **Step 3: 运行测试确认失败**
 
 Run: `node --test tests/upload.test.js`
 Expected: FAIL——`POST /api/sites` 目前只返回空列表占位（404/200 而非 201）。
 
-- [x] **Step 4: 实现上传路由**
+- **Step 4: 实现上传路由**
 
 在 `server/routes/admin.js` 顶部 require 区追加：
 
@@ -887,17 +887,17 @@ router.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 同时删掉 Task 2 遗留的 `router.get('/sites', ...)` 占位路由（Task 5 会实现真正的列表接口；先删掉避免与 Task 5 冲突，本任务测试不依赖列表接口）。
 
-- [x] **Step 5: 运行测试确认通过**
+- **Step 5: 运行测试确认通过**
 
 Run: `node --test tests/upload.test.js`
 Expected: PASS（7 个测试全部通过）。
 
-- [x] **Step 6: 回归跑全部已有测试**
+- **Step 6: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [x] **Step 7: 提交**
+- **Step 7: 提交**
 
 ```bash
 git add server/middleware/upload.js server/routes/admin.js tests/upload.test.js
@@ -920,7 +920,7 @@ git commit -m "feat: ZIP 上传接口，含路径安全校验与 slug 冲突处�
   - `PUT /api/sites/:slug`（body 可含 `title`、`description`、`slug`）→ `200 {success:true, site:{...}}`；新 slug 冲突 `409 DUPLICATE_SLUG`（此时目录不得被改名）；目标不存在 `404 SITE_NOT_FOUND`；slug 变更时 `uploads/{旧slug}/` 同步改名为 `uploads/{新slug}/`。
   - `DELETE /api/sites/:slug` → `200 {success:true}`，删除 DB 记录和 `uploads/{slug}/` 目录；不存在 `404 SITE_NOT_FOUND`。
 
-- [x] **Step 1: 写失败测试**
+- **Step 1: 写失败测试**
 
 创建 `tests/sites-crud.test.js`：
 
@@ -1060,12 +1060,12 @@ test('全部 CRUD 接口未登录返回 401', async () => {
 });
 ```
 
-- [x] **Step 2: 运行测试确认失败**
+- **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/sites-crud.test.js`
 Expected: FAIL——GET 列表 404（占位已删），详情/PUT/DELETE 404。
 
-- [x] **Step 3: 实现 CRUD 路由**
+- **Step 3: 实现 CRUD 路由**
 
 在 `server/routes/admin.js` 受保护区（`POST /sites` 之后）追加：
 
@@ -1135,17 +1135,17 @@ router.delete('/sites/:slug', (req, res) => {
 });
 ```
 
-- [x] **Step 4: 运行测试确认通过**
+- **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/sites-crud.test.js`
 Expected: PASS（6 个测试全部通过）。
 
-- [x] **Step 5: 回归跑全部已有测试**
+- **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [x] **Step 6: 提交**
+- **Step 6: 提交**
 
 ```bash
 git add server/routes/admin.js tests/sites-crud.test.js
@@ -1167,7 +1167,7 @@ git commit -m "feat: 站点管理 CRUD 接口，slug 变更同步改名目录"
   - `GET /sites/:slug/*` → 提供子路径文件；路径逃逸（含 URL 编码 `%2e%2e%2f`）→ `400 PATH_TRAVERSAL`；文件不存在 → `404 SITE_NOT_FOUND`。
   - Content-Type 由 `res.sendFile` 按扩展名自动设置。
 
-- [x] **Step 1: 写失败测试**
+- **Step 1: 写失败测试**
 
 创建 `tests/public.test.js`：
 
@@ -1255,12 +1255,12 @@ test('不存在的站点/文件返回 404 SITE_NOT_FOUND', async () => {
 });
 ```
 
-- [x] **Step 2: 运行测试确认失败**
+- **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/public.test.js`
 Expected: FAIL——占位路由全部返回 404 SITE_NOT_FOUND（合法请求也 404，遍历请求返回的是 404 而非 400）。
 
-- [x] **Step 3: 实现公开路由**
+- **Step 3: 实现公开路由**
 
 替换 `server/routes/public.js` 全部内容：
 
@@ -1306,17 +1306,17 @@ router.get('/:slug/*', (req, res) => {
 module.exports = router;
 ```
 
-- [x] **Step 4: 运行测试确认通过**
+- **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/public.test.js`
 Expected: PASS（5 个测试全部通过）。若 URL 编码遍历测试失败，检查 Express 对 `%2e` 的解码时机——`req.params` 已解码，`path.resolve` + `startsWith` 校验能覆盖，无需额外处理。
 
-- [x] **Step 5: 回归跑全部已有测试**
+- **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [x] **Step 6: 提交**
+- **Step 6: 提交**
 
 ```bash
 git add server/routes/public.js tests/public.test.js
@@ -1336,7 +1336,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 - Consumes: Task 2-6 的全部 API（`/api/login`、`/api/logout`、`/api/forgot-password`、`/api/reset-password`、`/api/sites` CRUD）；公开端 `http://<host>:3000/sites/{slug}` 用于预览 iframe。
 - Produces: 管理端所有非 `/api` 路径都由 `express.static(client/)` + fallback 提供 `admin.html`。前端内置视图：登录、忘记密码、重置密码（`?token=...`）、主界面（站点卡片 + 上传/编辑/预览/删除）。
 
-- [x] **Step 1: 创建 `client/admin.html`**
+- **Step 1: 创建 `client/admin.html`**
 
 ```html
 <!DOCTYPE html>
@@ -1477,7 +1477,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 </html>
 ```
 
-- [x] **Step 2: 创建 `client/admin.js`**
+- **Step 2: 创建 `client/admin.js`**
 
 ```javascript
 // 管理界面逻辑：视图切换 + API 封装 + 各模态框
@@ -1744,7 +1744,7 @@ git commit -m "feat: 公开静态文件服务，含路径逃逸防护与默认�
 })();
 ```
 
-- [x] **Step 3: 手动验证**
+- **Step 3: 手动验证**
 
 Run: `npm start`，浏览器打开 `http://localhost:3001`。
 Expected:
@@ -1754,12 +1754,12 @@ Expected:
 4. 登出回到登录页；"忘记密码"可切换视图（SMTP 未配置时提示文案正常）。
 验证完 Ctrl+C。
 
-- [x] **Step 4: 回归跑全部后端测试**
+- **Step 4: 回归跑全部后端测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS（前端不破坏后端路由）。
 
-- [x] **Step 5: 提交**
+- **Step 5: 提交**
 
 ```bash
 git add client/admin.html client/admin.js
@@ -1781,7 +1781,7 @@ git commit -m "feat: 管理界面单页应用，含登录、上传、编辑、�
 - Consumes: Task 1 的 `server/index.js`（容器入口命令）、package.json。
 - Produces: `docker compose up --build -d` 一键起服务，`uploads/`、`data/` 走 named volume（`site-uploads`、`site-data`），端口 3000/3001 暴露，环境变量按设计文档 §7 注入。
 
-- [x] **Step 1: 创建 `Dockerfile`**
+- **Step 1: 创建 `Dockerfile`**
 
 ```dockerfile
 # 多阶段构建：builder 装依赖，runner 只带产物
@@ -1803,7 +1803,7 @@ EXPOSE 3000 3001
 CMD ["node", "server/index.js"]
 ```
 
-- [x] **Step 2: 创建 `docker-compose.yml`**
+- **Step 2: 创建 `docker-compose.yml`**
 
 ```yaml
 services:
@@ -1831,7 +1831,7 @@ volumes:
   site-data:
 ```
 
-- [x] **Step 3: 创建 `.dockerignore` 与 `.env.example`**
+- **Step 3: 创建 `.dockerignore` 与 `.env.example`**
 
 `.dockerignore`：
 
@@ -1863,7 +1863,7 @@ SMTP_PASS=
 SMTP_FROM=noreply@local
 ```
 
-- [x] **Step 4: 验证构建与运行**
+- **Step 4: 验证构建与运行**
 
 Run:
 ```bash
@@ -1881,7 +1881,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:3001/
 ```
 Expected: 重启后仍返回 `200`，无 DB 报错日志（`docker compose logs app` 无 SQLite 错误）。验证完 `docker compose down`。
 
-- [x] **Step 5: 提交**
+- **Step 5: 提交**
 
 ```bash
 git add Dockerfile docker-compose.yml .dockerignore .env.example
@@ -1899,12 +1899,12 @@ git commit -m "feat: Docker 多阶段构建与 compose 编排，数据卷持久�
 - Consumes: 全部前序任务的成果。
 - Produces: 验收证据（终端输出记录），确认所有 tasks.md 第 8 节项通过。
 
-- [x] **Step 1: 全量自动化测试**
+- **Step 1: 全量自动化测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS，0 fail。
 
-- [x] **Step 2: 本地完整冒烟（本机 npm start）**
+- **Step 2: 本地完整冒烟（本机 npm start）**
 
 Run: `npm start`，然后：
 ```bash
@@ -1926,7 +1926,7 @@ curl -s http://localhost:3000/sites/demo
 ```
 Expected: 依次为 `{"success":true}`、`201`、列表含 `demo`、`<h1>demo</h1>`、`{"success":true}`、`404 SITE_NOT_FOUND`。
 
-- [x] **Step 3: 安全验证**
+- **Step 3: 安全验证**
 
 Run:
 ```bash
@@ -1937,7 +1937,7 @@ curl -s http://localhost:3001/api/sites
 ```
 Expected: 遍历请求返回 `400`（不是 200，绝不吐出 package.json 内容）；未认证返回 `401 AUTH_REQUIRED`。
 
-- [x] **Step 4: Docker 端到端验证**
+- **Step 4: Docker 端到端验证**
 
 Run:
 ```bash
@@ -1948,7 +1948,7 @@ docker compose down
 ```
 Expected: 浏览器流程完整可走通（登录页 → 上传 → 卡片出现 → 预览正常）；curl 返回上传站点的 index.html 内容。
 
-- [x] **Step 5: 收尾提交（如有验收期修复）**
+- **Step 5: 收尾提交（如有验收期修复）**
 
 ```bash
 git add -A
