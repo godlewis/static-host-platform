@@ -1,5 +1,3 @@
-const path = require('path');
-const fs = require('fs');
 const zlib = require('zlib');
 
 // Build a minimal valid ZIP with one stored (uncompressed) entry having
@@ -8,7 +6,6 @@ const zlib = require('zlib');
 function makeRawZip(entryName, content) {
   const data = Buffer.isBuffer(content) ? content : Buffer.from(content);
   const nameBuf = Buffer.from(entryName, 'utf8');
-  const crc = zlib.crc32 ? zlib.crc32(data) : require('buffer').Buffer.from(data).reduce((a, b) => ((a >>> 8) ^ require('crc-32').buf(data)) >>> 0, 0);
 
   // CRC-32 fallback (zlib.crc32 exists in Node 20+)
   const crcVal = typeof zlib.crc32 === 'function' ? zlib.crc32(data) : crc32fallback(data);

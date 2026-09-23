@@ -109,7 +109,13 @@ router.post('/sites', upload.single('file'), (req, res, next) => {
   const dest = path.join(config.UPLOAD_DIR, slug);
   const createdDir = !fs.existsSync(dest);
   fs.mkdirSync(dest, { recursive: true });
-  zip.extractAllTo(dest, true);
+  try {
+    zip.extractAllTo(dest, true);
+  } catch (e) {
+    // 解压失败回滚：半解压目录不落盘
+    if (createdDir) fs.rmSync(dest, { recursive: true, force: true });
+    return next(e);
+  }
 
   let site;
   try {
