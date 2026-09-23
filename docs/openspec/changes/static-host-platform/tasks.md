@@ -21,10 +21,10 @@
 
 ## 4. 网站管理（site-management）
 
-- [ ] 4.1 实现 GET /api/sites：查询所有站点，按 created_at 倒序，返回 JSON 数组
-- [ ] 4.2 实现 GET /api/sites/:slug：返回单站点详情（id/slug/title/description/created_at）
-- [ ] 4.3 实现 PUT /api/sites/:slug：更新 title/description/slug，slug 变更需检查唯一性
-- [ ] 4.4 实现 DELETE /api/sites/:slug：删除 DB 记录及 uploads/{slug}/ 目录，站点不存在返回 404
+- [x] 4.1 实现 GET /api/sites：查询所有站点，按 created_at 倒序，返回 JSON 数组
+- [x] 4.2 实现 GET /api/sites/:slug：返回单站点详情（id/slug/title/description/created_at）
+- [x] 4.3 实现 PUT /api/sites/:slug：更新 title/description/slug，slug 变更需检查唯一性
+- [x] 4.4 实现 DELETE /api/sites/:slug：删除 DB 记录及 uploads/{slug}/ 目录，站点不存在返回 404
 
 ## 5. 公开静态服务（site-public）
 

@@ -920,7 +920,7 @@ git commit -m "feat: ZIP 上传接口，含路径安全校验与 slug 冲突处�
   - `PUT /api/sites/:slug`（body 可含 `title`、`description`、`slug`）→ `200 {success:true, site:{...}}`；新 slug 冲突 `409 DUPLICATE_SLUG`（此时目录不得被改名）；目标不存在 `404 SITE_NOT_FOUND`；slug 变更时 `uploads/{旧slug}/` 同步改名为 `uploads/{新slug}/`。
   - `DELETE /api/sites/:slug` → `200 {success:true}`，删除 DB 记录和 `uploads/{slug}/` 目录；不存在 `404 SITE_NOT_FOUND`。
 
-- [ ] **Step 1: 写失败测试**
+- [x] **Step 1: 写失败测试**
 
 创建 `tests/sites-crud.test.js`：
 
@@ -1060,12 +1060,12 @@ test('全部 CRUD 接口未登录返回 401', async () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `node --test tests/sites-crud.test.js`
 Expected: FAIL——GET 列表 404（占位已删），详情/PUT/DELETE 404。
 
-- [ ] **Step 3: 实现 CRUD 路由**
+- [x] **Step 3: 实现 CRUD 路由**
 
 在 `server/routes/admin.js` 受保护区（`POST /sites` 之后）追加：
 
@@ -1135,17 +1135,17 @@ router.delete('/sites/:slug', (req, res) => {
 });
 ```
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `node --test tests/sites-crud.test.js`
 Expected: PASS（6 个测试全部通过）。
 
-- [ ] **Step 5: 回归跑全部已有测试**
+- [x] **Step 5: 回归跑全部已有测试**
 
 Run: `node --test tests/`
 Expected: 全部 PASS。
 
-- [ ] **Step 6: 提交**
+- [x] **Step 6: 提交**
 
 ```bash
 git add server/routes/admin.js tests/sites-crud.test.js

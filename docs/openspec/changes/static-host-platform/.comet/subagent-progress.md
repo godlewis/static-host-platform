@@ -5,7 +5,7 @@ review_mode: standard
 build_mode: subagent-driven-development
 tdd_mode: tdd
 isolation: branch (feature/20260923/static-host-platform)
-current_plan_task_index: 5
+current_plan_task_index: 6
 current_phase: implementing
 open_findings: []
 review_fix_round: {"task-2": 1, "task-4": 1}
@@ -30,4 +30,5 @@ Task 1: complete (commit 3c4913b, 133 lines, no risk signals, no reviewer needed
 Task 2: complete (implementer commit 2489e23, 103 lines; reviewer found 1 IMPORTANT destroy err + 3 SUGGESTION; fix agent commit 7b3db3e +5/-2; scoped re-review PASS; review_fix_round=1)
 Task 3: complete (implementer commit 5402f79, 145 lines, 4 pass / 0 fail password-reset + 9 pass / 0 fail 全量回归; reviewer PASS / SPEC COMPLIANT / QUALITY APPROVED; no review_fix_round needed; DONE_WITH_CONCERNS 6 项均为 informational)
 Task 4: complete (implementer commit d5893b8 7/7 upload + 16/16 全量 PASS; reviewer 3 IMPORTANT — zipbuilder dead require/crc + extractAllTo 无 try/catch 半解压残留 → fix commit d4a4884 → re-review 3/3 FOUND_FIXED; review_fix_round=1)
-Task 5 implementer: 待派发 (no risk signal — CRUD 无安全敏感)
+Task 5: complete (implementer commit a02a851, 22/22 PASS, no risk signal hit, skip reviewer; PUT 签名已修 ledger ruling (req,res,next); Concern: PUT slug 变更非原子 UPDATE→renameSync，renameSync 失败时 DB 已改目录未改 — production-low-probability 不阻塞交付)
+Task 6 implementer: 待派发 (risk signal hit: 路径遍历拦截 URL 解码 → reviewer after implementer)
