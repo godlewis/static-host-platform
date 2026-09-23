@@ -1,7 +1,6 @@
 // 应用工厂：构建管理端与公开端两个 Express 实例（不监听，便于测试）
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
 const session = require('express-session');
 const config = require('./config');
 const { initDb } = require('./db');
@@ -12,7 +11,6 @@ function createApps() {
   // ── 管理端 ──────────────────────────────────────────────
   const adminApp = express();
   adminApp.use(express.json());
-  adminApp.use(cors({ origin: true, credentials: true }));
   adminApp.use(session({
     secret: config.SESSION_SECRET,
     name: config.SESSION_NAME,
