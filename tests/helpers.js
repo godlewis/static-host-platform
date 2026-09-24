@@ -1,10 +1,8 @@
-// 测试辅助：用临时凭证文件启动双端口服务（随机端口）
 const path = require('node:path');
 const os = require('node:os');
 const fs = require('node:fs');
 const crypto = require('node:crypto');
 
-// 注意：必须在 require('../server/config') 之前设置，config 模块加载时即读取
 function useTempDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shp-test-'));
   process.env.PASSWORD_FILE = path.join(dir, 'creds.json');
@@ -13,7 +11,7 @@ function useTempDir() {
 }
 
 async function startServer() {
-  // Ensure fresh credentials per test (each test should start with default admin123)
+  // Ensure fresh credentials per test
   if (process.env.PASSWORD_FILE && fs.existsSync(process.env.PASSWORD_FILE)) {
     fs.rmSync(process.env.PASSWORD_FILE, { force: true });
   }
@@ -29,7 +27,6 @@ async function startServer() {
   };
 }
 
-// 从 fetch 响应提取会话 cookie（Node 20 fetch 不自动管理 cookie）
 function sessionCookie(res) {
   const cookies = res.headers.getSetCookie();
   return cookies.map((c) => c.split(';')[0]).join('; ');
