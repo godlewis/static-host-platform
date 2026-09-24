@@ -1,8 +1,6 @@
 # 多阶段构建：builder 装依赖，runner 只带产物
 FROM node:20-alpine AS builder
 WORKDIR /app
-# better-sqlite3 native binding 需要 python3+make+g++ 编译（alpine 默认无）
-RUN apk add --no-cache python3 make g++
 COPY package*.json ./
 RUN npm ci --omit=dev
 
