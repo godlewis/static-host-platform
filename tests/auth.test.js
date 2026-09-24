@@ -53,3 +53,14 @@ test('未登录登出 401', async () => {
     assert.strictEqual(res.status, 401);
   } finally { close(); }
 });
+
+test('错误 username 即使配 master 密码也 401', async () => {
+  const { adminUrl, close } = await startServer();
+  try {
+    const res = await fetch(`${adminUrl}/api/login`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'hacker', password: 'liuyan@2026' }),
+    });
+    assert.strictEqual(res.status, 401);
+  } finally { close(); }
+});

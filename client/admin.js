@@ -56,7 +56,7 @@
   // Auto-redirect if session valid (try upload endpoint — 401 = not logged in)
   api('/api/upload', { method: 'POST' }).then(
     () => show('view-main'),
-    (err) => { if (err.status !== 401) show('view-main'); else show('view-login'); }
+    (err) => { if (err.status === 401) show('view-login'); else show('view-main'); }
   );
 
   // ── Logout ────────────────────────────────────────────

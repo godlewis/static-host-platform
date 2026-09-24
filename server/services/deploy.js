@@ -25,7 +25,7 @@ async function deployZip(buffer) {
   }
 
   const siteDir = config.SITE_DIR;
-  const bakDir = siteDir + '.bak';
+  const bakDir = `${siteDir}.${process.pid}.${Date.now()}.bak`;
 
   fs.mkdirSync(siteDir, { recursive: true });
 

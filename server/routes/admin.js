@@ -14,7 +14,8 @@ router.post('/login', (req, res) => {
   if (!username || !password) {
     return res.status(401).json({ success: false, message: 'INVALID_CREDENTIALS' });
   }
-  if (!verifyPassword(password)) {
+  const creds = loadCredentials();
+  if (username !== creds.username || !verifyPassword(password)) {
     return res.status(401).json({ success: false, message: 'INVALID_CREDENTIALS' });
   }
   req.session.adminId = username;
