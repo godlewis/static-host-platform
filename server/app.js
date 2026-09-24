@@ -3,11 +3,8 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const config = require('./config');
-const { initDb } = require('./db');
 
 function createApps() {
-  initDb();
-
   // ── 管理端 ──────────────────────────────────────────────
   const adminApp = express();
   adminApp.use(express.json());
@@ -27,7 +24,7 @@ function createApps() {
 
   // ── 公开端 ──────────────────────────────────────────────
   const publicApp = express();
-  publicApp.use('/sites', require('./routes/public'));
+  publicApp.use('/', require('./routes/public'));
 
   return { adminApp, publicApp };
 }

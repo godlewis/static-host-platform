@@ -1,17 +1,22 @@
-// 测试辅助：用临时 DB 启动双端口服务（随机端口）
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-const crypto = require('crypto');
+// 测试辅助：用临时凭证文件启动双端口服务（随机端口）
+const path = require('node:path');
+const os = require('node:os');
+const fs = require('node:fs');
+const crypto = require('node:crypto');
 
 // 注意：必须在 require('../server/config') 之前设置，config 模块加载时即读取
-function useTempDb() {
+function useTempDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shp-test-'));
-  process.env.DB_PATH = path.join(dir, 'test.db');
+  process.env.PASSWORD_FILE = path.join(dir, 'creds.json');
+  delete require.cache[require.resolve('../server/config')];
   return dir;
 }
 
 async function startServer() {
+  // Ensure fresh credentials per test (each test should start with default admin123)
+  if (process.env.PASSWORD_FILE && fs.existsSync(process.env.PASSWORD_FILE)) {
+    fs.rmSync(process.env.PASSWORD_FILE, { force: true });
+  }
   const { createApps } = require('../server/app');
   const { adminApp, publicApp } = createApps();
   const adminServer = adminApp.listen(0, '127.0.0.1');
@@ -48,4 +53,4 @@ function makeZip(files) {
   return zip.toBuffer();
 }
 
-module.exports = { useTempDb, startServer, sessionCookie, login, makeZip, randomSlug: () => 'site-' + crypto.randomBytes(4).toString('hex') };
+module.exports = { useTempDir, startServer, sessionCookie, login, makeZip };
