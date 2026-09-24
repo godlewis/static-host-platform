@@ -2,6 +2,7 @@
 change: static-host-platform
 design-doc: docs/superpowers/specs/2025-09-19-static-host-platform-design.md
 base-ref: 8a070148d60144a8e84b0eb2bec114df372fe338
+archived-with: 2026-09-24-static-host-platform
 ---
 
 # 静态网站托管平台 实施计划
