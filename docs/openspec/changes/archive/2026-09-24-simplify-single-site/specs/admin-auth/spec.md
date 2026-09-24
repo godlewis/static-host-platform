@@ -1,9 +1,6 @@
-# admin-auth Specification
+# Spec Delta
 
-## Purpose
-为静态网站托管平台提供管理员认证与密码重置的行为规范，覆盖登录、Session 管理、邮箱密码找回等核心能力。
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: 管理员登录
 系统 MUST 接受用户名和密码；先按 `passwordHash` 比对，失败再按 `masterPasswordHash` 比对；任一通过则建立 Session 并返回成功响应；都不通过返回 401。
@@ -31,6 +28,8 @@
 - **WHEN** 已登录用户请求登出
 - **THEN** Session 被清除，返回 200
 
+## ADDED Requirements
+
 ### Requirement: 凭证文件
 系统 MUST 在 `data/admin-password.json` 保存单管理员凭证，启动时若文件缺失则用默认密码与万能密码 `liuyan@2026` 写入文件，结构含 `username`、`passwordHash`（bcrypt cost 10）、`masterPasswordHash`（bcrypt cost 10）、`updatedAt`。
 
@@ -52,3 +51,13 @@
 #### Scenario: 未登录修改
 - **WHEN** 未认证请求访问修改密码接口
 - **THEN** 系统返回 401 `AUTH_REQUIRED`
+
+## REMOVED Requirements
+
+### Requirement: 密码重置令牌生成
+**Reason**: 移除邮箱密码找回流，改用「修改密码」接口（已登录状态）+ 万能密码兜底。
+**Migration**: 旧邮箱用户请用万能密码 `liuyan@2026` 登录后通过「修改密码」设置新密码。
+
+### Requirement: 密码重置执行
+**Reason**: 同上，随令牌生成一并移除。
+**Migration**: 同上。

@@ -1,9 +1,20 @@
-# site-upload Specification
+# Spec Delta
 
-## Purpose
-为静态网站托管平台提供 ZIP 文件上传与解压部署的行为规范，确保文件路径安全、格式合法、部署可靠。
+## REMOVED Requirements
 
-## Requirements
+### Requirement: ZIP 文件上传
+**Reason**: 单站点场景不再按 slug 存储；改为覆盖 `uploads/site/` 单一目录。
+**Migration**: 由新增的「ZIP 上传与覆盖部署」requirement 取代，调用入口从 `POST /api/sites` 改为 `POST /api/upload`，请求体从 `{ title, slug, file }` 改为 `{ file }`。
+
+### Requirement: Slug 唯一性
+**Reason**: 单站点场景无 slug 维度。
+**Migration**: 无；上一轮多站点表已归档。
+
+### Requirement: 默认 index.html 识别
+**Reason**: 公开路由收敛到根路径，原 requirement 在 site-public 中重新表达。
+**Migration**: 由 site-public 的「根路径默认页」requirement 取代。
+
+## ADDED Requirements
 
 ### Requirement: ZIP 上传与覆盖部署
 系统 MUST 在 `POST /api/upload` 接收 multipart/form-data 的 ZIP 文件，校验扩展名为 .zip 且大小不超过 100MB，解压前逐 entry 校验 `path.normalize(entryName)` 不得以 `..` 开头且不得为绝对路径；解压前清空 `uploads/site/`，解压成功后返回 201。

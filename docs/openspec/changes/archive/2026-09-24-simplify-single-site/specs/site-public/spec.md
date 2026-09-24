@@ -1,9 +1,6 @@
-# site-public Specification
+# Spec Delta
 
-## Purpose
-为静态网站托管平台提供按 slug 公开访问托管网站的行为规范，支持静态文件服务和错误页面处理。
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: 按 slug 提供静态文件
 系统 MUST 在端口 3000 上响应请求，从 `uploads/site/` 目录提供对应文件，Content-Type 根据文件扩展名自动设置。
