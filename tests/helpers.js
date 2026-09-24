@@ -6,6 +6,8 @@ const crypto = require('node:crypto');
 function useTempDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shp-test-'));
   process.env.PASSWORD_FILE = path.join(dir, 'creds.json');
+  process.env.SITE_DIR = path.join(dir, 'site');
+  process.env.UPLOAD_DIR = path.join(dir, 'uploads');
   delete require.cache[require.resolve('../server/config')];
   return dir;
 }
@@ -14,6 +16,14 @@ async function startServer() {
   // Ensure fresh credentials per test
   if (process.env.PASSWORD_FILE && fs.existsSync(process.env.PASSWORD_FILE)) {
     fs.rmSync(process.env.PASSWORD_FILE, { force: true });
+  }
+  // Clean site dir from previous tests
+  const config = require('../server/config');
+  if (fs.existsSync(config.SITE_DIR)) {
+    fs.rmSync(config.SITE_DIR, { recursive: true, force: true });
+  }
+  if (fs.existsSync(config.SITE_DIR + '.bak')) {
+    fs.rmSync(config.SITE_DIR + '.bak', { recursive: true, force: true });
   }
   const { createApps } = require('../server/app');
   const { adminApp, publicApp } = createApps();

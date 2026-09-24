@@ -4,8 +4,8 @@ module.exports = {
   ADMIN_PORT: process.env.ADMIN_PORT || 3001,
   PUBLIC_PORT: process.env.PUBLIC_PORT || 3000,
 
-  UPLOAD_DIR: path.join(__dirname, '..', 'uploads'),
-  SITE_DIR: path.join(__dirname, '..', 'uploads', 'site'),
+  UPLOAD_DIR: process.env.UPLOAD_DIR || path.join(__dirname, '..', 'uploads'),
+  SITE_DIR: process.env.SITE_DIR || path.join(__dirname, '..', 'uploads', 'site'),
 
   CLIENT_DIR: path.join(__dirname, '..', 'client'),
 
