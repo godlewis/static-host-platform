@@ -2,6 +2,8 @@
 comet_change: static-host-platform
 role: technical-design
 canonical_spec: openspec
+archived-with: 2026-09-24-static-host-platform
+status: final
 ---
 
 # 静态网站托管平台 — 技术设计文档

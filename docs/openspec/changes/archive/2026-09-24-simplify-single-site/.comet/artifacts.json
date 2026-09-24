@@ -1,0 +1,9 @@
+{
+  "openspec_proposal": "docs/openspec/changes/simplify-single-site/proposal.md",
+  "openspec_design": "docs/openspec/changes/simplify-single-site/design.md",
+  "openspec_tasks": "docs/openspec/changes/simplify-single-site/tasks.md",
+  "openspec_delta_spec": "docs/openspec/changes/simplify-single-site/specs/admin-auth/spec.md",
+  "handoff_context": "docs/openspec/changes/archive/2026-09-24-simplify-single-site/.comet/handoff/design-context.json",
+  "handoff_markdown": "docs/openspec/changes/archive/2026-09-24-simplify-single-site/.comet/handoff/design-context.md",
+  "archive_directory": "docs/openspec/changes/archive/2026-09-24-simplify-single-site"
+}

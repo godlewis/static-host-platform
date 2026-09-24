@@ -1,0 +1,17 @@
+{
+  "change": "simplify-single-site",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "task_hash_policy": "task-content-v1",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "3666aa4e1aa2a7ea1d8d0113beae27e2a838254a3f65361574cb200cc7267b31",
+  "files": [
+    { "path": "docs/openspec/changes/simplify-single-site/proposal.md", "sha256": "9d21ac3b0c48e4966bd37eb4aeebbf11930ae14af5a281893626a9d8f10490be" },
+    { "path": "docs/openspec/changes/simplify-single-site/design.md", "sha256": "e669ce99b6936a5837a96628314e97181c78f4f36046bab6b01d915282bd7303" },
+    { "path": "docs/openspec/changes/simplify-single-site/tasks.md", "sha256": "d4fb61a4da42651f9eff86cf9dc5a2dfe8f6e6d6f41aa6edc41482c97a2f0d59" },
+    { "path": "docs/openspec/changes/simplify-single-site/specs/admin-auth/spec.md", "sha256": "343ea6dfb334091073bda20ada7bd79188444f7874c68fd6e932d9840f40e4bf" },
+    { "path": "docs/openspec/changes/simplify-single-site/specs/site-public/spec.md", "sha256": "f895ea43e778077ca445bf99e1405228558878d3878fc96cc5e5078d6fa0f8bd" },
+    { "path": "docs/openspec/changes/simplify-single-site/specs/site-upload/spec.md", "sha256": "ad1e0317340188bfc4293df654209e9c428db73620e53acdbcf5545b912320bf" }
+  ]
+}

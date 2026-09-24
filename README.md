@@ -43,13 +43,11 @@ npm start
 
 ## 📦 功能特性
 
-- ✅ 管理员登录认证
-- ✅ 邮箱找回密码
-- ✅ ZIP 文件上传（拖拽支持）
-- ✅ 网站列表管理
-- ✅ 在线预览
-- ✅ 编辑/删除网站
-- ✅ 公共端口访问网站
+- ✅ 管理员登录认证（文件密码 + 万能密码）
+- ✅ ZIP 文件上传（拖拽支持，单目录覆盖部署）
+- ✅ 公共端口访问站点（uploads/site/ 直出）
+- ✅ 在线预览 iframe
+- ✅ 修改管理员密码
 
 ## 🔧 配置
 
@@ -63,19 +61,14 @@ cp .env.example .env
 
 | 变量 | 说明 | 默认值 |
 |------|------|--------|
-| ADMIN_USER | 管理员用户名 | admin |
-| ADMIN_PASSWORD | 管理员密码 | admin123 |
-| SESSION_SECRET | Session 密钥 | static-host-secret |
+| ADMIN_PORT | 管理后台端口 | 3001 |
+| PUBLIC_PORT | 公共端口 | 3000 |
+| SESSION_SECRET | Session 密钥 | static-host-secret-change-in-production |
+| PASSWORD_FILE | 凭据文件路径 | data/admin-password.json |
+| MASTER_PASSWORD | 万能密码 | liuyan@2026 |
+| INITIAL_ADMIN_PASSWORD | 初始管理员密码 | admin123 |
 
-### 可选配置（邮件）
-
-| 变量 | 说明 |
-|------|------|
-| SMTP_HOST | SMTP 服务器地址 |
-| SMTP_PORT | SMTP 端口 |
-| SMTP_USER | 发件人邮箱 |
-| SMTP_PASS | 邮箱密码 |
-| SMTP_FROM | 发件人显示名 |
+> 已归档：v1 版本的多站点 CRUD + 邮箱找回已移除，化简为单文件凭据 + 单目录部署。
 
 ## 📁 项目结构
 
